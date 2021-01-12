@@ -8,7 +8,6 @@ let otherJob = document.getElementById('other-job-role');
 let design = document.getElementById('design');
 let color = document.getElementById('color');
 let optionColor = color.children;
-let activities = document.getElementById('activities');
 let total = document.getElementById('activities-cost');
 let totalCost = 0;
 let payment = document.getElementById('payment');
@@ -20,7 +19,7 @@ let cardNumber = document.getElementById('cc-num');
 let zipCode = document.getElementById('zip');
 let cvv = document.getElementById('cvv');
 let form = document.querySelector('form');
-
+let activities = document.getElementById('activities-box')
 ////////////// hide the job role text field
 otherJob.style.display = 'none';
 
@@ -114,7 +113,8 @@ const emailValidator = () => {
 
 const languageValidator = () => {
     let languageIsValid = totalCost > 0;
-    return languageIsValid
+    return languageIsValid;
+    
 }
 
 const cardValidator = () => {
@@ -132,11 +132,6 @@ const zipValidator = () => {
 const cvvValidator = () => {
     let cvvValue = cvv.value;
     let cvvIsValid = /^[0-9][0-9][0-9]$/.test(cvvValue);
-    /*if (cvvIsValid) {  /// trying to refractor 
-        isValid(cvvValue);
-    } else {
-        isNotValid(cvvValue);
-    }*/
     return cvvIsValid;
 }
 
@@ -144,50 +139,52 @@ const cvvValidator = () => {
 
 form.addEventListener('submit', function (e) {
 
-
-    if (!nameValidator()) {
+    if (nameValidator()) {
+        isValid(nameInput)
+    } else {
         e.preventDefault();
         isNotValid(nameInput);
-    } else {
-        isValid(nameInput)
     }
-    if (!emailValidator()) {
+
+    if (emailValidator()) {
+        isValid(email);
+    } else {
         e.preventDefault();
         isNotValid(email);
-    } else {
-        isValid(email);
     }
-    if (!languageValidator()) {
+
+    if (languageValidator()) {
+        isValid(activities);
+    } else {
         e.preventDefault();
         isNotValid(activities);
-
-    } else {
-        isNotValid(activities);
     }
-    if (!cardValidator()) {
+
+    if (cardValidator()) {
+        isValid(cardNumber);
+    } else {
         e.preventDefault()
         isNotValid(cardNumber);
-    } else {
-        isValid(cardNumber);
     }
 
-    if (!zipValidator()) {
+    if (zipValidator()) {
+        isValid(zipCode);
+    } else {
         e.preventDefault();
         isNotValid(zipCode);
-    } else {
-        isValid(zipCode);
     }
-    if (!cvvValidator()) {
+
+    if (cvvValidator()) {
+        isValid(cvv);
+    } else {
         e.preventDefault();
         isNotValid(cvv);
-    } else {
-        isValid(cvv);
     }
 
     // check credit card if selected 
 
     let pay = false;
-    if (payment.value === payment[1]) {
+    if (payment[1].value === "credit-card") {
         if (cardValidator() && zipValidator() && cvvValidator()) {
             pay = true;
         } else {
@@ -197,9 +194,10 @@ form.addEventListener('submit', function (e) {
         pay = true;
     }
 
-   /* if (!nameValidator() || !emailValidator() || !languageValidator() || !pay) {
-        e.preventDefault()
-    }*/ //  THIS PIECE OF CODE IS CAUSING THE SUBMIT PROBLEM
+    if (!nameValidator() || !emailValidator() || !languageValidator() || !pay) {
+         e.preventDefault()
+     } //  THIS PIECE OF CODE IS CAUSING THE SUBMIT PROBLEM
+     console.log(pay)
 })
 
 ///// Accessibility 
