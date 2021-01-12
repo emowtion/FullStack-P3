@@ -114,11 +114,7 @@ const emailValidator = () => {
 
 const languageValidator = () => {
     let languageIsValid = totalCost > 0;
-    if (languageIsValid) {
-        isValid(activities);
-    } else {
-        isNotValid(activities);
-    }
+    return languageIsValid
 }
 
 const cardValidator = () => {
@@ -136,6 +132,11 @@ const zipValidator = () => {
 const cvvValidator = () => {
     let cvvValue = cvv.value;
     let cvvIsValid = /^[0-9][0-9][0-9]$/.test(cvvValue);
+    /*if (cvvIsValid) {  /// trying to refractor 
+        isValid(cvvValue);
+    } else {
+        isNotValid(cvvValue);
+    }*/
     return cvvIsValid;
 }
 
@@ -196,9 +197,9 @@ form.addEventListener('submit', function (e) {
         pay = true;
     }
 
-    if (!nameValidator() || !emailValidator() || !languageValidator() || !pay) {
+   /* if (!nameValidator() || !emailValidator() || !languageValidator() || !pay) {
         e.preventDefault()
-    }
+    }*/ //  THIS PIECE OF CODE IS CAUSING THE SUBMIT PROBLEM
 })
 
 ///// Accessibility 
@@ -209,8 +210,8 @@ let inputCheckbox = document.querySelectorAll('input[type="checkbox"]')
 inputCheckbox.forEach((element) => {
     element.addEventListener('focus', function () {
         element.parentElement.classList.add('focus')
-    }, true);
+    });
     element.addEventListener('blur', function () {
         element.parentElement.classList.remove('focus')
-    }, true);
+    });
 })
