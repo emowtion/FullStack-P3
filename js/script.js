@@ -40,7 +40,7 @@ jobRole.addEventListener('change', function (e) {
 ///////////////// tee-shirt section
 color.disabled = true;
 
-design.addEventListener('change', function (e) {
+design.addEventListener('change', function (e) { ////// when a change happens on design we enable the color option
     color.disabled = false;
     for (let i = 0; i < optionColor.length; i++) {
         let value = e.target.value;
@@ -56,7 +56,7 @@ design.addEventListener('change', function (e) {
 })
 
 ////////////////// Event listener for Register for Activities section
-activities.addEventListener('change', function (e) {
+activities.addEventListener('change', function (e) { /// when there is a "change/check" on activities we add the datacost to the totalcost var, subtract when opposite
     let dataCost = +e.target.getAttribute('data-cost');
     if (e.target.checked) {
         totalCost += dataCost;
@@ -75,7 +75,7 @@ payment[1].setAttribute('selected', ''); // always show credit card
 
 
 // Event listener for choosing between diffrent payment methods 
-payment.addEventListener('change', function (e) {
+payment.addEventListener('change', function (e) { /////// toggle between payment options if an option is displayed we hide the others
 
     creditCard.style.display = 'none';
     payPal.style.display = 'none';
@@ -182,13 +182,13 @@ const cvvValidator = () => {
 
 
 
-form.addEventListener('submit', function (e) {
+form.addEventListener('submit', function (e) { ///// call all above functions (if true validate) if not (prevent the browser from reloading)
 
     nameValidator();
     emailValidator();
     languageValidator();
 
-    ///////// if credit card is selected call these functions
+    ///////// Only if credit card is selected call these functions
     if (payment.options[1].value == 'credit-card') {
         cardValidator();
         zipValidator();
@@ -197,7 +197,7 @@ form.addEventListener('submit', function (e) {
         e.preventDefault();
     }
 
-    if (!nameValidator() || !emailValidator() || !languageValidator()) {
+    if (!nameValidator() || !emailValidator() || !languageValidator()) { ///// do not validate if these function are false
         e.preventDefault();
     }
 })
