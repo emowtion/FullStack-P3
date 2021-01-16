@@ -71,7 +71,7 @@ activities.addEventListener('change', function (e) { /// when there is a "change
 
 payPal.style.display = 'none'; // hide paypal and bitcoin by default
 bitcoin.style.display = 'none';
-payment[1].setAttribute('selected', ''); // always show credit card 
+payment.children[1].setAttribute('selected', 'true'); // always show credit card 
 
 
 // Event listener for choosing between diffrent payment methods 
@@ -153,7 +153,6 @@ const cardValidator = () => {
         isNotValid(cardNumber);
     }
     return cardValid;
-
 }
 ////////////////////////
 const zipValidator = () => {
@@ -184,21 +183,25 @@ const cvvValidator = () => {
 
 form.addEventListener('submit', function (e) { ///// call all above functions (if true validate) if not (prevent the browser from reloading)
 
-    nameValidator();
-    emailValidator();
-    languageValidator();
-
-    ///////// Only if credit card is selected call these functions
-    if (payment.options[1].value == 'credit-card') {
-        cardValidator();
-        zipValidator();
-        cvvValidator();
-    } else {
-        e.preventDefault();
+    if (!nameValidator()) {
+        e.preventDefault()
     }
-
-    if (!nameValidator() || !emailValidator() || !languageValidator()) { ///// do not validate if these function are false
-        e.preventDefault();
+    if (!emailValidator()) {
+        e.preventDefault()
+    }
+    if (!languageValidator()) {
+        e.preventDefault()
+    }
+    if (payment.value === 'credit-card') {
+        if (!cardValidator()) {
+            e.preventDefault()
+        }
+        if (!zipValidator()) {
+            e.preventDefault()
+        }
+        if (!cvvValidator()) {
+            e.preventDefault()
+        }
     }
 })
 
